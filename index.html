@@ -1,0 +1,681 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Thilak Thiagarajan</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300;1,400&family=Geist+Mono:wght@300;400&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --ink:   #111010;
+    --mid:   #888;
+    --light: #bbb;
+    --paper: #f7f5f1;
+    --rule:  #e2e0db;
+    --serif: 'Cormorant Garamond', Georgia, serif;
+    --mono:  'Geist Mono', monospace;
+  }
+
+  html { scroll-behavior: smooth; font-size: 17px; }
+
+  body {
+    background: var(--paper);
+    color: var(--ink);
+    font-family: var(--serif);
+    line-height: 1.65;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  /* ── NAV ── */
+  nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 50;
+    display: flex; justify-content: space-between; align-items: center;
+    padding: 1.4rem 4rem;
+    background: var(--paper);
+    border-bottom: 1px solid var(--rule);
+  }
+  .nav-name {
+    font-family: var(--mono); font-size: .68rem;
+    letter-spacing: .2em; text-transform: uppercase;
+    color: var(--ink); text-decoration: none;
+  }
+  .nav-links { display: flex; gap: 2rem; list-style: none; flex-wrap: wrap; }
+  .nav-links a {
+    font-family: var(--mono); font-size: .6rem;
+    letter-spacing: .16em; text-transform: uppercase;
+    color: var(--mid); text-decoration: none; transition: color .15s;
+  }
+  .nav-links a:hover, .nav-links a.active { color: var(--ink); }
+
+  /* ── HERO ── */
+  .hero {
+    min-height: 100vh;
+    display: grid; grid-template-rows: 1fr auto;
+    padding: 10rem 4rem 4rem;
+    border-bottom: 1px solid var(--rule);
+  }
+  .hero-body { align-self: end; }
+
+  .hero-top {
+    display: flex; align-items: flex-end;
+    gap: 3.5rem; margin-bottom: 2.4rem; flex-wrap: wrap;
+  }
+
+  /* Avatar */
+  .avatar-wrap {
+    flex-shrink: 0; width: 130px; height: 130px;
+    border-radius: 50%; overflow: hidden;
+    border: 1px solid var(--rule); background: #e8e5e0;
+    position: relative; cursor: pointer;
+    animation: appear .6s ease both;
+    transition: opacity .2s;
+  }
+  .avatar-wrap:hover { opacity: .85; }
+  .avatar-wrap img {
+    width: 100%; height: 100%;
+    object-fit: cover; object-position: center top; display: block;
+  }
+  .avatar-initials {
+    position: absolute; inset: 0;
+    display: flex; align-items: center; justify-content: center;
+    font-family: var(--serif); font-size: 2.4rem; font-weight: 300;
+    color: var(--mid); pointer-events: none;
+  }
+
+  .hero-text { flex: 1; min-width: 240px; }
+  .hero-label {
+    font-family: var(--mono); font-size: .63rem;
+    letter-spacing: .2em; text-transform: uppercase;
+    color: var(--mid); margin-bottom: 1rem;
+    animation: appear .6s ease both;
+  }
+  .hero-name {
+    font-family: var(--serif);
+    font-size: clamp(3.2rem, 8vw, 6.8rem);
+    font-weight: 300; line-height: .95;
+    letter-spacing: -.01em; color: var(--ink);
+    animation: appear .7s .05s ease both;
+  }
+  .hero-name em { font-style: italic; color: var(--mid); }
+
+  .hero-foot {
+    display: flex; justify-content: space-between; align-items: flex-end;
+    border-top: 1px solid var(--rule); padding-top: 2rem;
+    animation: appear .7s .15s ease both; flex-wrap: wrap; gap: 1.5rem;
+  }
+  .hero-summary {
+    font-size: 1rem; font-weight: 300; color: var(--ink);
+    max-width: 580px; line-height: 1.7;
+  }
+  .hero-contact {
+    display: flex; flex-direction: column; gap: .5rem; align-items: flex-end;
+  }
+  .contact-item {
+    font-family: var(--mono); font-size: .62rem;
+    letter-spacing: .12em; color: var(--mid);
+    text-decoration: none; transition: color .15s;
+  }
+  .contact-item:hover { color: var(--ink); }
+
+  /* ── LINKS ── */
+  .link-primary {
+    font-family: var(--mono); font-size: .65rem;
+    letter-spacing: .18em; text-transform: uppercase;
+    color: var(--ink); text-decoration: none;
+    border-bottom: 1px solid var(--ink); padding-bottom: 1px;
+    transition: opacity .15s;
+  }
+  .link-primary:hover { opacity: .45; }
+  .link-secondary {
+    font-family: var(--mono); font-size: .65rem;
+    letter-spacing: .18em; text-transform: uppercase;
+    color: var(--mid); text-decoration: none; transition: color .15s;
+  }
+  .link-secondary:hover { color: var(--ink); }
+
+  /* ── SECTIONS ── */
+  section { padding: 6rem 4rem; border-bottom: 1px solid var(--rule); }
+  .section-inner { max-width: 900px; margin: 0 auto; }
+
+  .section-header {
+    display: flex; align-items: baseline; gap: 1.5rem;
+    margin-bottom: 4rem; padding-bottom: 1.5rem;
+    border-bottom: 1px solid var(--rule);
+  }
+  .section-num {
+    font-family: var(--mono); font-size: .6rem;
+    letter-spacing: .2em; color: var(--light);
+    text-transform: uppercase; flex-shrink: 0;
+  }
+  .section-title {
+    font-family: var(--serif); font-size: clamp(1.9rem, 4vw, 2.8rem);
+    font-weight: 300; line-height: 1.1; color: var(--ink);
+  }
+
+  /* ── SKILLS GRID ── */
+  .skills-cols { display: grid; grid-template-columns: 1fr 1fr; gap: 3rem; }
+  .skill-group-title {
+    font-family: var(--mono); font-size: .6rem;
+    letter-spacing: .2em; text-transform: uppercase;
+    color: var(--mid); margin-bottom: 1rem;
+    padding-bottom: .6rem; border-bottom: 1px solid var(--rule);
+  }
+  .skill-list { display: flex; flex-direction: column; gap: .55rem; }
+  .skill-item {
+    font-size: .95rem; font-weight: 300; color: var(--ink);
+    display: flex; align-items: baseline; gap: .6rem;
+  }
+  .skill-item::before {
+    content: '—'; font-family: var(--mono);
+    font-size: .6rem; color: var(--light); flex-shrink: 0;
+  }
+
+  /* ── EXPERIENCE ── */
+  .exp-list { display: flex; flex-direction: column; }
+  .exp-item {
+    display: grid; grid-template-columns: 180px 1fr;
+    gap: 3rem; padding: 2.8rem 0;
+    border-bottom: 1px solid var(--rule);
+    opacity: 0; transform: translateY(14px);
+    transition: opacity .5s ease, transform .5s ease;
+  }
+  .exp-item:first-child { padding-top: 0; }
+  .exp-item.visible { opacity: 1; transform: translateY(0); }
+
+  .exp-left { padding-top: .25rem; }
+  .exp-period {
+    font-family: var(--mono); font-size: .6rem;
+    letter-spacing: .12em; color: var(--light);
+    text-transform: uppercase; line-height: 1.7;
+    margin-bottom: .5rem;
+  }
+  .exp-employer {
+    font-family: var(--mono); font-size: .58rem;
+    letter-spacing: .1em; color: var(--mid);
+    text-transform: uppercase; line-height: 1.6;
+  }
+
+  .exp-role {
+    font-family: var(--serif); font-size: 1.35rem;
+    font-weight: 300; color: var(--ink);
+    margin-bottom: .2rem; line-height: 1.2;
+  }
+  .exp-subrole {
+    font-family: var(--mono); font-size: .6rem;
+    letter-spacing: .12em; text-transform: uppercase;
+    color: var(--mid); margin-bottom: .5rem; line-height: 1.7;
+  }
+  .exp-company {
+    font-family: var(--mono); font-size: .65rem;
+    letter-spacing: .14em; text-transform: uppercase;
+    color: var(--mid); margin-bottom: 1rem;
+  }
+  .exp-desc {
+    font-size: .95rem; font-weight: 300; color: var(--mid); line-height: 1.75;
+  }
+  .exp-tags { display: flex; flex-wrap: wrap; gap: .45rem; margin-bottom: 1rem; }
+  .exp-tag {
+    font-family: var(--mono); font-size: .57rem;
+    letter-spacing: .12em; text-transform: uppercase;
+    border: 1px solid var(--rule); color: var(--mid);
+    padding: .18rem .5rem; border-radius: 1px;
+  }
+  .exp-bullets { display: flex; flex-direction: column; gap: .5rem; }
+  .exp-bullet {
+    font-size: .95rem; font-weight: 300; color: var(--mid);
+    line-height: 1.7; display: flex; gap: .8rem; align-items: baseline;
+  }
+  .exp-bullet::before {
+    content: '—'; font-family: var(--mono);
+    font-size: .6rem; color: var(--light); flex-shrink: 0;
+  }
+
+  /* ── CERTIFICATIONS ── */
+  .cert-grid { display: grid; grid-template-columns: 1fr 1fr; gap: .8rem 3rem; }
+  .cert-item {
+    padding: 1rem 0; border-bottom: 1px solid var(--rule);
+    display: flex; align-items: baseline; gap: .8rem;
+  }
+  .cert-item::before {
+    content: '◎'; font-size: .6rem; color: var(--light); flex-shrink: 0;
+  }
+  .cert-name { font-size: .95rem; font-weight: 300; color: var(--ink); line-height: 1.5; }
+  .cert-status {
+    font-family: var(--mono); font-size: .56rem;
+    letter-spacing: .12em; text-transform: uppercase;
+    color: var(--mid); margin-top: .2rem;
+  }
+
+  /* ── EDUCATION ── */
+  .edu-list { display: flex; flex-direction: column; }
+  .edu-item {
+    display: grid; grid-template-columns: 180px 1fr;
+    gap: 3rem; padding: 2.4rem 0; border-bottom: 1px solid var(--rule);
+  }
+  .edu-item:first-child { padding-top: 0; }
+  .edu-uni {
+    font-family: var(--mono); font-size: .6rem;
+    letter-spacing: .12em; color: var(--light);
+    text-transform: uppercase; line-height: 1.6; padding-top: .2rem;
+  }
+  .edu-degree {
+    font-family: var(--serif); font-size: 1.35rem;
+    font-weight: 300; color: var(--ink);
+    margin-bottom: .2rem; line-height: 1.2;
+  }
+  .edu-field { font-size: .95rem; font-weight: 300; font-style: italic; color: var(--mid); }
+  .edu-year {
+    font-family: var(--mono); font-size: .58rem;
+    letter-spacing: .12em; color: var(--light);
+    text-transform: uppercase; margin-top: .3rem;
+  }
+
+  /* ── CONNECT ── */
+  #connect { border-bottom: none; }
+  .connect-body {
+    display: flex; justify-content: space-between;
+    align-items: flex-end; flex-wrap: wrap; gap: 2rem;
+  }
+  .connect-text {
+    font-family: var(--serif); font-size: clamp(1.6rem, 4vw, 2.4rem);
+    font-weight: 300; line-height: 1.2; color: var(--ink);
+    max-width: 480px;
+  }
+  .connect-text em { font-style: italic; color: var(--mid); }
+  .connect-links { display: flex; flex-direction: column; gap: 1rem; align-items: flex-end; }
+
+  /* ── FOOTER ── */
+  footer {
+    padding: 1.8rem 4rem;
+    display: flex; justify-content: space-between; align-items: center;
+    border-top: 1px solid var(--rule);
+  }
+  .footer-copy {
+    font-family: var(--mono); font-size: .6rem;
+    letter-spacing: .15em; text-transform: uppercase; color: var(--light);
+  }
+  .footer-link {
+    font-family: var(--mono); font-size: .6rem;
+    letter-spacing: .15em; text-transform: uppercase;
+    color: var(--mid); text-decoration: none; transition: color .15s;
+  }
+  .footer-link:hover { color: var(--ink); }
+
+  @keyframes appear {
+    from { opacity: 0; transform: translateY(10px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+
+  @media (max-width: 720px) {
+    nav { padding: 1.1rem 1.5rem; }
+    .nav-links { gap: 1.2rem; }
+    .hero { padding: 8rem 1.5rem 3rem; }
+    section { padding: 4rem 1.5rem; }
+    .skills-cols, .cert-grid { grid-template-columns: 1fr; gap: 2rem; }
+    .exp-item, .edu-item { grid-template-columns: 1fr; gap: .6rem; }
+    footer { padding: 1.5rem; flex-direction: column; gap: .8rem; text-align: center; }
+    .avatar-wrap { width: 90px; height: 90px; }
+    .hero-contact { align-items: flex-start; }
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <a href="#" class="nav-name">Thilak Thiagarajan</a>
+  <ul class="nav-links">
+    <li><a href="#about">About</a></li>
+    <li><a href="#experience">Experience</a></li>
+    <li><a href="#certifications">Certifications</a></li>
+    <li><a href="#education">Education</a></li>
+    <li><a href="#connect">Connect</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<div class="hero">
+  <div class="hero-body">
+    <div class="hero-top">
+      <div class="avatar-wrap" title="Click to add your photo" id="avatarWrap">
+        <img id="profile-img" src="" alt="Thilak Thiagarajan" style="display:none">
+        <div class="avatar-initials" id="avatarInitials">TT</div>
+      </div>
+      <div class="hero-text">
+        <p class="hero-label">Project Manager &amp; Senior Application Support Engineer · AI &amp; Data Enthusiast</p>
+        <h1 class="hero-name">Thilak<br><em>Thiagarajan</em></h1>
+      </div>
+    </div>
+    <div class="hero-foot">
+      <p class="hero-summary">Results-oriented IT professional with 12+ years of experience in IT infrastructure, cloud platforms, application support, and project management — delivering end-to-end digital transformation in banking and financial services.</p>
+      <div class="hero-contact">
+        <a href="tel:+6588698660" class="contact-item">+65 8869 8660</a>
+        <a href="mailto:Thilak.Manickam@gmail.com" class="contact-item">Thilak.Manickam@gmail.com</a>
+        <a href="https://sg.linkedin.com/in/thilak-thiagarajan-22b87a25" target="_blank" class="contact-item">LinkedIn ↗</a>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ABOUT / SKILLS -->
+<section id="about">
+  <div class="section-inner">
+    <div class="section-header">
+      <span class="section-num">01</span>
+      <h2 class="section-title">Core Competencies</h2>
+    </div>
+    <div class="skills-cols">
+      <div>
+        <p class="skill-group-title">Project &amp; Leadership</p>
+        <div class="skill-list">
+          <div class="skill-item">Program &amp; Project Management (Agile, Waterfall, Hybrid)</div>
+          <div class="skill-item">Stakeholder Management &amp; Vendor Coordination</div>
+          <div class="skill-item">Cross-functional Team Leadership</div>
+          <div class="skill-item">Incident, Change &amp; Problem Management (ITIL)</div>
+          <div class="skill-item">Application &amp; Infrastructure Migrations</div>
+        </div>
+      </div>
+      <div>
+        <p class="skill-group-title">Technical</p>
+        <div class="skill-list">
+          <div class="skill-item">Cloud Platforms: AWS, GCP</div>
+          <div class="skill-item">DevOps: Git, Jenkins, Docker, Kubernetes, Terraform, Ansible, Puppet</div>
+          <div class="skill-item">Atlassian Suite: Jira &amp; Confluence (Admin &amp; Customisation)</div>
+          <div class="skill-item">IT Infrastructure &amp; Systems Administration (Linux, Windows)</div>
+          <div class="skill-item">CI/CD, Automation &amp; Microservices</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- EXPERIENCE -->
+<section id="experience">
+  <div class="section-inner">
+    <div class="section-header">
+      <span class="section-num">02</span>
+      <h2 class="section-title">Experience</h2>
+    </div>
+    <div class="exp-list">
+
+      <!-- CA CIB -->
+      <div class="exp-item">
+        <div class="exp-left">
+          <p class="exp-period">Nov 2021<br>Present</p>
+          <p class="exp-employer">Wipro Limited<br>Client: CA CIB<br>Singapore</p>
+        </div>
+        <div>
+          <p class="exp-role">Project Manager &amp; Senior Application Support Engineer</p>
+          <p class="exp-subrole">L3 App Support (Nov 2021 – Dec 2022) → Project Manager (Dec 2022 – Present)</p>
+          <p class="exp-company">Credit Agricole Corporate &amp; Investment Bank</p>
+          <div class="exp-tags">
+            <span class="exp-tag">Project Management</span>
+            <span class="exp-tag">Application Support</span>
+            <span class="exp-tag">Agile</span>
+            <span class="exp-tag">AI &amp; Data</span>
+            <span class="exp-tag">Stakeholder Management</span>
+          </div>
+          <p class="exp-desc">Started as Senior Application Support Engineer L3, then progressed to Project Manager in Dec 2022. Now leads a 21-member cross-functional team, manages end-to-end migration projects, and built an in-house project management tool that cut manual reporting by 70%.</p>
+        </div>
+      </div>
+
+      <!-- PCCW -->
+      <div class="exp-item">
+        <div class="exp-left">
+          <p class="exp-period">Dec 2019<br>Nov 2021</p>
+          <p class="exp-employer">PCCW Solutions<br>Insys Pte Ltd<br>Singapore</p>
+        </div>
+        <div>
+          <p class="exp-role">Cloud Infrastructure Engineer</p>
+          <p class="exp-company">PCCW Solutions Insys Pte Ltd</p>
+          <div class="exp-tags">
+            <span class="exp-tag">Cloud</span>
+            <span class="exp-tag">Kubernetes</span>
+            <span class="exp-tag">Docker</span>
+            <span class="exp-tag">CI/CD</span>
+            <span class="exp-tag">Ansible</span>
+          </div>
+          <p class="exp-desc">Cloud Infrastructure Engineer supporting GovTech's GCC Cloud migration. Built Kubernetes and Docker-based infrastructure, implemented Jenkins CI/CD pipelines, and automated server provisioning with Ansible and Puppet.</p>
+        </div>
+      </div>
+
+      <!-- IBM -->
+      <div class="exp-item">
+        <div class="exp-left">
+          <p class="exp-period">Apr 2019<br>Dec 2019</p>
+          <p class="exp-employer">IBM Singapore<br>Client: Singapore<br>Airlines (SIA)</p>
+        </div>
+        <div>
+          <p class="exp-role">EUC Support Engineer</p>
+          <p class="exp-subrole">8-Month Contract</p>
+          <p class="exp-company">IBM Singapore Pte Ltd</p>
+          <div class="exp-tags">
+            <span class="exp-tag">EUC Support</span>
+            <span class="exp-tag">Win10 Migration</span>
+            <span class="exp-tag">MDM</span>
+            <span class="exp-tag">L3 Support</span>
+          </div>
+          <p class="exp-desc">EUC Support Engineer on an 8-month contract at Singapore Airlines. Led the Win7-to-Win10 migration, managed overseas server refresh projects, and provided L3 support for SIA's applications and mobile devices.</p>
+        </div>
+      </div>
+
+      <!-- HCL -->
+      <div class="exp-item">
+        <div class="exp-left">
+          <p class="exp-period">Jul 2017<br>Mar 2019</p>
+          <p class="exp-employer">HCL Insys<br>Pte Ltd<br>Singapore</p>
+        </div>
+        <div>
+          <p class="exp-role">Senior Remote Support Engineer</p>
+          <p class="exp-company">HCL Insys Pte Ltd</p>
+          <div class="exp-tags">
+            <span class="exp-tag">Remote Support</span>
+            <span class="exp-tag">Team Lead</span>
+            <span class="exp-tag">Change Management</span>
+          </div>
+          <p class="exp-desc">Senior Remote Support Engineer acting as technical project lead — managing escalations, delivering hardware refresh and application rollout projects, and mentoring the support team.</p>
+        </div>
+      </div>
+
+      <!-- Parisilk -->
+      <div class="exp-item">
+        <div class="exp-left">
+          <p class="exp-period">Apr 2015<br>Jul 2017</p>
+          <p class="exp-employer">Parisilk<br>Electronics<br>Singapore</p>
+        </div>
+        <div>
+          <p class="exp-role">Technical Support Engineer</p>
+          <p class="exp-company">Parisilk Electronics &amp; Computers Pte Ltd</p>
+          <div class="exp-tags">
+            <span class="exp-tag">IT Operations</span>
+            <span class="exp-tag">Infrastructure</span>
+            <span class="exp-tag">Vendor Management</span>
+          </div>
+          <p class="exp-desc">Managed IT operations, infrastructure security, and project delivery for website and system upgrades across multiple sites, including preventive maintenance and IT procurement.</p>
+        </div>
+      </div>
+
+      <!-- Alwin -->
+      <div class="exp-item">
+        <div class="exp-left">
+          <p class="exp-period">Sep 2012<br>Jan 2015</p>
+          <p class="exp-employer">Alwin<br>Publications<br>India</p>
+        </div>
+        <div>
+          <p class="exp-role">IT Administrator</p>
+          <p class="exp-company">Alwin Publications, Chennai, India</p>
+          <div class="exp-tags">
+            <span class="exp-tag">IT Administration</span>
+            <span class="exp-tag">Infrastructure</span>
+            <span class="exp-tag">Server Management</span>
+          </div>
+          <p class="exp-desc">IT Administrator handling infrastructure, user accounts, server setups, and vendor coordination for the company's IT requirements — including hardware rollouts and backup management.</p>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- CERTIFICATIONS -->
+<section id="certifications">
+  <div class="section-inner">
+    <div class="section-header">
+      <span class="section-num">03</span>
+      <h2 class="section-title">Certifications</h2>
+    </div>
+    <div class="cert-grid">
+      <div class="cert-item">
+        <div>
+          <p class="cert-name">Google Project Management Professional Certificate</p>
+          <p class="cert-status">Currently Pursuing</p>
+        </div>
+      </div>
+      <div class="cert-item">
+        <div>
+          <p class="cert-name">AWS Certified Solutions Architect — Associate</p>
+          <p class="cert-status">Currently Pursuing</p>
+        </div>
+      </div>
+      <div class="cert-item">
+        <div>
+          <p class="cert-name">Foundation of Project Management</p>
+          <p class="cert-status">Google Certified</p>
+        </div>
+      </div>
+      <div class="cert-item">
+        <div>
+          <p class="cert-name">GitHub Copilot for Technical — L2 &amp; L3</p>
+          <p class="cert-status">Certified</p>
+        </div>
+      </div>
+      <div class="cert-item">
+        <div>
+          <p class="cert-name">AWS Certified Cloud Practitioner</p>
+          <p class="cert-status">Udemy Course Completion</p>
+        </div>
+      </div>
+      <div class="cert-item">
+        <div>
+          <p class="cert-name">In-House DevOps Training</p>
+          <p class="cert-status">HCL Insys Pte Ltd</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- EDUCATION -->
+<section id="education">
+  <div class="section-inner">
+    <div class="section-header">
+      <span class="section-num">04</span>
+      <h2 class="section-title">Education</h2>
+    </div>
+    <div class="edu-list">
+      <div class="edu-item">
+        <p class="edu-uni">University of<br>Sussex, UK</p>
+        <div>
+          <p class="edu-degree">Master of Science</p>
+          <p class="edu-field">Intelligent Systems</p>
+          <p class="edu-year">2010 — 2012</p>
+        </div>
+      </div>
+      <div class="edu-item">
+        <p class="edu-uni">Sathyabama<br>University, India</p>
+        <div>
+          <p class="edu-degree">Master of Science</p>
+          <p class="edu-field">Software Engineering</p>
+          <p class="edu-year">2005 — 2010</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CONNECT -->
+<section id="connect">
+  <div class="section-inner">
+    <div class="section-header">
+      <span class="section-num">05</span>
+      <h2 class="section-title">Connect</h2>
+    </div>
+    <div class="connect-body">
+      <p class="connect-text">Open to new opportunities and <em>conversations</em> around AI, data, cloud, and financial technology.</p>
+      <div class="connect-links">
+        <a href="https://sg.linkedin.com/in/thilak-thiagarajan-22b87a25" target="_blank" class="link-primary">LinkedIn ↗</a>
+        <a href="mailto:Thilak.Manickam@gmail.com" class="link-primary">Email ↗</a>
+        <a href="tel:+6588698660" class="link-primary">+65 8869 8660</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <p class="footer-copy">© 2026 Thilak Thiagarajan · Singapore Citizen</p>
+  <a href="https://sg.linkedin.com/in/thilak-thiagarajan-22b87a25" target="_blank" class="footer-link">LinkedIn ↗</a>
+</footer>
+
+<script>
+  // Scroll reveal for experience items
+  const obs = new IntersectionObserver(entries => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        setTimeout(() => e.target.classList.add('visible'), +e.target.dataset.delay || 0);
+        obs.unobserve(e.target);
+      }
+    });
+  }, { threshold: 0.08 });
+  document.querySelectorAll('.exp-item').forEach((el, i) => {
+    el.dataset.delay = i * 70;
+    obs.observe(el);
+  });
+
+  // Nav active highlight
+  const sections = document.querySelectorAll('section[id], div.hero');
+  const navLinks = document.querySelectorAll('.nav-links a');
+  window.addEventListener('scroll', () => {
+    let cur = '';
+    sections.forEach(s => { if (scrollY >= s.offsetTop - 150) cur = s.id || ''; });
+    navLinks.forEach(a => {
+      a.classList.toggle('active', a.getAttribute('href') === `#${cur}`);
+    });
+  }, { passive: true });
+
+  // Avatar click-to-upload
+  const avatarWrap = document.getElementById('avatarWrap');
+  avatarWrap.addEventListener('click', () => {
+    const input = document.createElement('input');
+    input.type = 'file'; input.accept = 'image/*';
+    input.onchange = e => {
+      const file = e.target.files[0]; if (!file) return;
+      const reader = new FileReader();
+      reader.onload = ev => {
+        const img = document.getElementById('profile-img');
+        img.src = ev.target.result;
+        img.style.display = 'block';
+        document.getElementById('avatarInitials').style.display = 'none';
+      };
+      reader.readAsDataURL(file);
+    };
+    input.click();
+  });
+
+  // Drag-and-drop photo
+  ['dragover','dragenter'].forEach(t => avatarWrap.addEventListener(t, e => { e.preventDefault(); avatarWrap.style.opacity='.6'; }));
+  ['dragleave','drop'].forEach(t => avatarWrap.addEventListener(t, e => { e.preventDefault(); avatarWrap.style.opacity='1'; }));
+  avatarWrap.addEventListener('drop', e => {
+    const file = e.dataTransfer.files[0];
+    if (!file || !file.type.startsWith('image/')) return;
+    const reader = new FileReader();
+    reader.onload = ev => {
+      const img = document.getElementById('profile-img');
+      img.src = ev.target.result; img.style.display = 'block';
+      document.getElementById('avatarInitials').style.display = 'none';
+    };
+    reader.readAsDataURL(file);
+  });
+</script>
+</body>
+</html>
